@@ -24,7 +24,7 @@ export default function InfoCard({ point, setPoint }) {
 
   return (
     <div onClick={handleClick} className="modal">
-      <Card weather={weather} />
+      <Card weather={weather} point={point} />
     </div >
   )
 }
