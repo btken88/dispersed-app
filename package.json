@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@arcgis/webpack-plugin": "^4.16.2",
+    "@react-google-maps/api": "^1.9.9",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "esri-loader": "^2.15.0",
+    "esri-loader-hooks": "^0.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "reset-css": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

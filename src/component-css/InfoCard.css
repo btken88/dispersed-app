@@ -1,0 +1,15 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background-color: hsla(0, 0%, 0%, 0.4);
+  grid-column: 1/4;
+  grid-row: 1/4
+}
+
+.modal-card {
+  padding: 30px;
+  border-radius: 5px;
+  background-color: #eaede9;
+}
