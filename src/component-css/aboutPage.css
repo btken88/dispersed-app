@@ -1,10 +1,11 @@
 .about-page {
-  height: 90vh;
+  height: 100%;
   width: 1000px;
   padding: 15px 30px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+  align-content: flex-start;
   background-color: #eaede9;
 }
 
@@ -14,7 +15,11 @@
   margin: 30px;
 }
 
-.dispersed-ps p {
+.about-page p {
+  margin: 15px;
+}
+
+.dispersed-ps .narrow {
   width: 400px;
   margin: 30px;
 }

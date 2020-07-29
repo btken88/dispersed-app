@@ -10,3 +10,13 @@
   grid-column: 2 / 3;
   grid-row: 2 / 3;
 }
+
+.esri-view-surface {
+  border-radius: 5px;
+  box-shadow: 0 0 3px #28190e;
+}
+
+.esri-attribution__sources,
+.esri-attribution__powered-by {
+  display: none;
+}
