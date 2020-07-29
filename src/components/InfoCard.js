@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 
-export default function Card({ weather, point }) {
+export default function InfoCard({ weather, point, setShowForm, showForm }) {
   const [elevation, setElevation] = useState(null)
   const { current, daily } = weather
   const { lat, lng } = point
@@ -33,6 +33,11 @@ export default function Card({ weather, point }) {
     })
   }
 
+  function showFavoriteForm(event) {
+    event.stopPropagation()
+    setShowForm(!showForm)
+  }
+
   return (
     <div className='modal-card'>
       <h2>Current Weather</h2>
@@ -57,6 +62,7 @@ export default function Card({ weather, point }) {
         : null}
       <div className='card-buttons'>
         <a href={`https://www.google.com/maps/dir/''/${lat},${lng}`} target="blank">Get there with Google</a>
+        <button onClick={showFavoriteForm}>Add to Favorites</button>
       </div>
     </div>
   )

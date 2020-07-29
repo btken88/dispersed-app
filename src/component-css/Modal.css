@@ -13,10 +13,25 @@
 }
 
 .modal-card h2 {
-  font-size: 20px;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.modal-card input {
+  margin-top: 10px;
+}
+
+.modal-card input[type="textarea"] {
+  height: 80px;
+  width: 250px;
+}
+
+.modal-card label {
+  margin-top: 15px;
 }
 
 .modal-card {
+  z-index: 2;
   box-shadow: 0 0 8px -2px hsl(134, 31%, 15%);
   display: flex;
   flex-direction: column;
@@ -44,4 +59,21 @@
 .day img {
   height: 30px;
   margin: 5px;
+}
+
+.card-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.favorite-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.modal-card a {
+  padding: 6px;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
 import Header from './components/Header';
@@ -10,6 +10,12 @@ import AboutPage from './components/AboutPage'
 
 function App() {
   const [favorites, setFavorites] = useState([])
+  useEffect(() => {
+    fetch('http://localhost:5000/favorites')
+      .then(response => response.json())
+      .then(setFavorites)
+  }, [])
+
   return (
     <div className="App">
       <Router>
@@ -19,7 +25,7 @@ function App() {
           </Route>
           <Route exact path="/map">
             <Header />
-            <CustomMapContainer />
+            <CustomMapContainer setFavorites={setFavorites} favorites={favorites} />
             <Footer />
           </Route>
           <Route exact path="/about">

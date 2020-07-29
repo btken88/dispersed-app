@@ -5,7 +5,7 @@ import '../component-css/mapContainer.css'
 
 loadCss()
 
-export default function CustomMapContainer() {
+export default function CustomMapContainer({ favorites, setFavorites }) {
   const [point, setPoint] = useState({})
   const containerRef = useRef()
 
@@ -54,7 +54,7 @@ export default function CustomMapContainer() {
   return (
     <div className="map-container">
       <div className="webmap" ref={containerRef} />
-      {point.lat ? <Modal point={point} setPoint={setPoint} /> : null}
+      {point.lat ? <Modal point={point} setPoint={setPoint} favorites={favorites} setFavorites={setFavorites} /> : null}
     </div>
   )
 }
