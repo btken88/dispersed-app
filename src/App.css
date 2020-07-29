@@ -52,7 +52,7 @@ header {
   padding: 0 30px;
   width: 100vw;
   height: 3rem;
-  background-color: #2a5033;
+  background-color: rgb(42, 80, 51);
   box-shadow: 0 0 4px hsl(134, 31%, 15%);
   color: #eaede9;
   display: flex;
@@ -61,7 +61,7 @@ header {
 }
 
 header a {
-  color: #eaede9;
+  color: hsl(105, 10%, 92%);
 }
 
 header ul {
