@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+.active-link {
+  border-radius: 5px;
+  background-color: #28190e;
+  padding: 5px;
+  box-shadow: 0 0 3px hsl(134, 31%, 15%);
+}
+
 button {
   font-family: Rubik;
   font-size: 16px;
@@ -23,18 +30,16 @@ body {
 
 .App {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  height: 100vh;
 }
 
 a {
   text-decoration: none;
-  padding: 5px;
 }
 
 header h1 {
   font-family: 'Righteous', cursive;
-  font-size: 30px;
+  font-size: 2.2rem;
 }
 
 body {
@@ -87,8 +92,3 @@ footer {
 footer a {
   color: #eaede9;
 }
-
-/* #root {
-  height: 100%;
-  display: flex;
-}*/

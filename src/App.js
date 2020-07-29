@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import CustomMapContainer from './components/CustomMapContainer';
+import MapPage from './components/MapPage';
 import HomePage from './components/HomePage'
 import AboutPage from './components/AboutPage'
+import Favorites from './components/Favorites';
 
 
 function App() {
@@ -24,14 +25,15 @@ function App() {
             <HomePage />
           </Route>
           <Route exact path="/map">
-            <Header />
-            <CustomMapContainer setFavorites={setFavorites} favorites={favorites} />
-            <Footer />
+            <MapPage setFavorites={setFavorites} favorites={favorites} />
           </Route>
           <Route exact path="/about">
             <Header />
             <AboutPage />
             <Footer />
+          </Route>
+          <Route exact path="/favorites">
+            <Favorites favorites={favorites} />
           </Route>
         </Switch>
       </Router>

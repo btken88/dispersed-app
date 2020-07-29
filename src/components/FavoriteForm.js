@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 export default function FavoriteForm({ point, setShowForm, showForm, favorites, setFavorites }) {
   const [formData, setFormData] = useState({
@@ -6,6 +7,8 @@ export default function FavoriteForm({ point, setShowForm, showForm, favorites, 
     lng: point.lng,
     note: ""
   })
+
+  const history = useHistory()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -15,9 +18,9 @@ export default function FavoriteForm({ point, setShowForm, showForm, favorites, 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     }).then(response => response.json())
-      .then(console.log)
+      .then(favorite => setFavorites([...favorites, favorite]))
+      .then(history.push('/favorites'))
     setShowForm(!showForm)
-    alert('Site added to favorites!')
   }
 
   function handleChange(e) {

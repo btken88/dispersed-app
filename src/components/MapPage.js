@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { loadModules, loadCss } from 'esri-loader'
 import Modal from './Modal'
-import '../component-css/mapContainer.css'
+import '../component-css/map-page.css'
+import Header from './Header'
+import Footer from './Footer'
 
 loadCss()
 
-export default function CustomMapContainer({ favorites, setFavorites }) {
+export default function MapPage({ favorites, setFavorites, ...props }) {
   const [point, setPoint] = useState({})
   const containerRef = useRef()
 
@@ -52,9 +54,18 @@ export default function CustomMapContainer({ favorites, setFavorites }) {
   }, []);
 
   return (
-    <div className="map-container">
-      <div className="webmap" ref={containerRef} />
-      {point.lat ? <Modal point={point} setPoint={setPoint} favorites={favorites} setFavorites={setFavorites} /> : null}
+    <div className="map-page">
+      <Header />
+      <div className="map-page-map" ref={containerRef} />
+      {point.lat
+        ? <Modal
+          point={point}
+          setPoint={setPoint}
+          favorites={favorites}
+          setFavorites={setFavorites}
+          props={props} />
+        : null}
+      <Footer />
     </div>
   )
 }

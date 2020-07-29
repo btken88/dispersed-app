@@ -7,8 +7,6 @@ export default function MapContainer() {
   const [ref] = useWebMap('8721657ca98f4cbc9e9411a03da37951')
 
   return (
-    <div className="map-container">
-      <div className="webmap" ref={ref} />
-    </div>
+    <div className="favorites-map" ref={ref} />
   )
 }
