@@ -24,16 +24,29 @@
 }
 
 .site-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px -2px hsl(134, 31%, 15%);
   margin-bottom: 10px;
 }
 
-.site-info:hover {
-  cursor: pointer;
+.site-info button {
+  background-color: #2a5033;
+  box-shadow: 0 0 5px -2px hsl(134, 31%, 15%);
+  color: #EAEDE9;
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.lat-lng {
+  margin-bottom: 8px;
 }
 
 .note {
-  margin: 8px 0 0 0;
+  margin-bottom: 8px;
+  width: 100%;
 }

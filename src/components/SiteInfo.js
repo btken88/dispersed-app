@@ -11,10 +11,15 @@ export default function SiteInfo({ favorite, setSettings }) {
     })
   }
   return (
-    <div className="site-info" onClick={chooseFavorite}>
-      <p>Lat: {lat.toFixed(4)}</p>
-      <p>Lng: {lng.toFixed(4)}</p>
+    <div className='site-info'>
+      <div className='lat-lng'>
+        <p>Lat: {lat.toFixed(4)}</p>
+        <p>Lng: {lng.toFixed(4)}</p>
+      </div>
+      <button className='see-site' onClick={chooseFavorite}>See Site</button>
+      <p className='note'>Notes:</p>
       <p className='note'>{note}</p>
+      <a href={`https://www.google.com/maps/dir/''/${lat},${lng}`} target="blank">Get there with Google</a>
     </div>
   )
 }
