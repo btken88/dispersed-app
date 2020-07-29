@@ -1,0 +1,36 @@
+.home-page {
+  background-image: linear-gradient(hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.4)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80');
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page h1 {
+  margin-bottom: 150px;
+  font-family: 'Righteous';
+  font-size: 120px;
+  color: #2a5033;
+  text-shadow: 0 0 2px #28190e;
+}
+
+.home-page-buttons {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-page-buttons a {
+  text-decoration: none;
+  background-color: #eaede9;
+  box-shadow: 0 0 4px #28190e;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 30px;
+  color: #28190e;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { loadModules, loadCss } from 'esri-loader'
-import InfoCard from './InfoCard'
+import Modal from './Modal'
 import '../component-css/mapContainer.css'
 
 loadCss()
@@ -13,8 +13,8 @@ export default function CustomMapContainer() {
     // Code here from ArcGIS documentation
     // this will lazy load the ArcGIS API
     // and then use Dojo's loader to require the classes
-    loadModules(['esri/views/MapView', 'esri/WebMap', 'esri/widgets/Legend'])
-      .then(([MapView, ArcGISMap, Legend]) => {
+    loadModules(['esri/views/MapView', 'esri/WebMap', 'esri/widgets/Legend/LegendViewModel', 'esri/widgets/Legend'])
+      .then(([MapView, ArcGISMap, LegendViewModel, Legend]) => {
         // then we load a web map from an id
         const webmap = new ArcGISMap({
           portalItem: { // autocasts as new PortalItem()
@@ -54,7 +54,7 @@ export default function CustomMapContainer() {
   return (
     <div className="map-container">
       <div className="webmap" ref={containerRef} />
-      {point.lat ? <InfoCard point={point} setPoint={setPoint} /> : null}
+      {point.lat ? <Modal point={point} setPoint={setPoint} /> : null}
     </div>
   )
 }

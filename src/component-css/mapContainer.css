@@ -1,12 +1,12 @@
 .map-container {
   display: grid;
   grid-template-columns: 5% 90% 5%;
-  grid-template-rows: 3% 94% 3%;
-  height: 100%;
+  grid-template-rows: 5% 90% 5%;
+  height: 90vh;
+  width: 100vw;
 }
 
 .webmap {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
-  height: 800px;
 }
