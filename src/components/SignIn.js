@@ -13,28 +13,39 @@ export default function SignIn() {
 
   function signUp(e) {
     e.preventDefault()
+    console.log(username, password)
     fetch('http://localhost:5000/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password, email })
     }).then(response => response.json())
-      .then(result => localStorage.setItem('token', result.token))
-      .then(history.push('/favorites'))
-      .catch(err => {
-        console.error(err.msg)
-        alert(err.msg)
+      .then(result => {
+        if (result.token) {
+          localStorage.setItem('token', result.token)
+        } else {
+          alert(result.message)
+        }
       })
+      .then(history.push('/favorites'))
   }
 
   function signIn(e) {
     e.preventDefault()
-    fetch('http://localhost:5000/login', {
+    const fetchParams = {
       method: 'POST',
-      header: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
-    }).then(response => response.json())
-      .then(data => localStorage.setItem('token', data.token))
-      .then(history.push('/favorites'))
+    }
+    fetch('http://localhost:5000/login', fetchParams)
+      .then(response => response.json())
+      .then(result => {
+        if (result.token) {
+          localStorage.setItem('token', result.token)
+          history.push('/favorites')
+        } else {
+          alert(result.message)
+        }
+      })
   }
 
   return (

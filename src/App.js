@@ -9,11 +9,11 @@ import SignIn from './components/SignIn'
 
 function App() {
   const [favorites, setFavorites] = useState([])
-  useEffect(() => {
-    fetch('http://localhost:5000/favorites')
-      .then(response => response.json())
-      .then(setFavorites)
-  }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/favorites')
+  //     .then(response => response.json())
+  //     .then(setFavorites)
+  // }, [])
 
   return (
     <div className="App">

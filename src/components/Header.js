@@ -12,7 +12,7 @@ export default function Header() {
       <ul className="navigation">
         <li><NavLink to='/about' activeClassName="active-link">About</NavLink></li>
         <li><NavLink to='/map' activeClassName="active-link">Map</NavLink></li>
-        {loggedIn
+        {!!loggedIn
           ? (
             <>
               <li><NavLink to='/map' onClick={logOut}>Log Out</NavLink></li>

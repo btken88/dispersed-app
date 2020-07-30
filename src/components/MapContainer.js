@@ -32,7 +32,10 @@ export default function MapContainer({ center, points, zoom }) {
         const graphicsLayer = new GraphicsLayer()
         webmap.add(graphicsLayer)
 
+        console.log('points', points)
+
         points.forEach(point => {
+          console.log(point)
           const newPoint = {
             type: "point",
             longitude: point.lng,
@@ -66,7 +69,7 @@ export default function MapContainer({ center, points, zoom }) {
         // handle any errors
         console.error(err);
       });
-  }, []);
+  }, [points, center]);
 
   return (
     <div className="favorites-map" ref={containerRef} />

@@ -17,6 +17,8 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
       })
   }, [elevationAPI])
 
+  const loggedIn = localStorage.getItem('token')
+
 
   let fiveDayForecast = null
   if (daily) {
@@ -62,7 +64,7 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
         : null}
       <div className='card-buttons'>
         <a href={`https://www.google.com/maps/dir/''/${lat},${lng}`} target="blank">Get there with Google</a>
-        <button onClick={showFavoriteForm}>Add to Favorites</button>
+        {loggedIn ? <button onClick={showFavoriteForm}>Add to Favorites</button> : null}
       </div>
     </div>
   )

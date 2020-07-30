@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-export default function FavoriteForm({ point, setShowForm, showForm, favorites, setFavorites }) {
+export default function FavoriteForm({ point, setShowForm, showForm }) {
   const [formData, setFormData] = useState({
     lat: point.lat,
     lng: point.lng,
@@ -12,13 +12,16 @@ export default function FavoriteForm({ point, setShowForm, showForm, favorites, 
 
   function handleSubmit(e) {
     e.preventDefault()
-    setFavorites([...favorites, formData])
+    const token = localStorage.getItem('token')
     fetch('http://localhost:5000/favorites', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      },
       body: JSON.stringify(formData)
     }).then(response => response.json())
-      .then(favorite => setFavorites([...favorites, favorite]))
+      .then(console.log)
       .then(history.push('/favorites'))
     setShowForm(!showForm)
   }

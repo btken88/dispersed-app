@@ -61,3 +61,9 @@
   border-radius: 5px;
   box-shadow: 0 0 5px hsla(134, 58%, 26%, 20%);
 }
+
+.favorites h2 {
+  font-size: 60px;
+  grid-row: 3;
+  grid-column: 2 / 4;
+}
