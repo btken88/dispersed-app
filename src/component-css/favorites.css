@@ -50,3 +50,14 @@
   margin-bottom: 8px;
   width: 100%;
 }
+
+.site-info a {
+  color: #28190e;
+  margin-left: auto;
+}
+
+.site-info a:hover {
+  background-color: hsla(134, 31%, 24%, 10%);
+  border-radius: 5px;
+  box-shadow: 0 0 5px hsla(134, 58%, 26%, 20%);
+}

@@ -15,16 +15,16 @@ export default function MapPage({ favorites, setFavorites, ...props }) {
     // Code here from ArcGIS documentation
     // this will lazy load the ArcGIS API
     // and then use Dojo's loader to require the classes
-    loadModules(['esri/views/MapView', 'esri/WebMap', 'esri/widgets/Legend/LegendViewModel', 'esri/widgets/Legend'])
-      .then(([MapView, ArcGISMap, LegendViewModel, Legend]) => {
+    loadModules(['esri/views/MapView', 'esri/WebMap'])
+      .then(([MapView, WebMap]) => {
         // then we load a web map from an id
-        const webmap = new ArcGISMap({
+        const webmap = new WebMap({
           portalItem: { // autocasts as new PortalItem()
             id: '8721657ca98f4cbc9e9411a03da37951'
           }
         });
         // and we show that map in a container w/ id #viewDiv
-        var view = new MapView({
+        const view = new MapView({
           map: webmap,
           container: containerRef.current,
           center: [-105.6598, 39.821],

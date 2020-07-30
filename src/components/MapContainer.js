@@ -14,9 +14,9 @@ export default function MapContainer({ center, points, zoom }) {
       'esri/Graphic',
       'esri/layers/GraphicsLayer'
     ])
-      .then(([MapView, ArcGISMap, Graphic, GraphicsLayer]) => {
+      .then(([MapView, WebMap, Graphic, GraphicsLayer]) => {
         // then we load a web map from an id
-        const webmap = new ArcGISMap({
+        const webmap = new WebMap({
           portalItem: { // autocasts as new PortalItem()
             id: '8721657ca98f4cbc9e9411a03da37951'
           }
@@ -66,7 +66,7 @@ export default function MapContainer({ center, points, zoom }) {
         // handle any errors
         console.error(err);
       });
-  }, [points, center]);
+  }, []);
 
   return (
     <div className="favorites-map" ref={containerRef} />
