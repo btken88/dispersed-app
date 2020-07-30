@@ -8,7 +8,7 @@ export default function HomePage() {
       <h1>Dispersed</h1>
       <div className='home-page-buttons'>
         <Link to='/map'>View Map</Link>
-        <Link to='/about'>About</Link>
+        <Link to='/login'>Sign In</Link>
       </div>
     </div>
   )
