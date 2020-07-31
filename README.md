@@ -1,68 +1,177 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dispersed App
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Dispersed App](#dispersed-app)
+  - [Table of Contents](#table-of-contents)
+  - [General Info](#general-info)
+  - [Inspiration](#inspiration)
+  - [Demonstration Video](#demonstration-video)
+  - [Technologies](#technologies)
+  - [Setup](#setup)
+  - [Example Code](#example-code)
+  - [Features](#features)
+  - [Status](#status)
+  - [Contact](#contact)
+  - [License](#license)
 
-### `npm start`
+## General Info
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Dispersed is a frontend web application which allows users to explore the National Forest system to find and save new or old favorite dispersed camping sites. It is built with the React framework, using hooks instead of class components.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Inspiration
 
-### `npm test`
+Dispersed camping is allowed on most forest service roads open to public use, but map options to find new sites are less than ideal. Generally the only way to explore dispersed camping locations is on a large paper map from the forest service, which is difficult to later locate with gps mapping.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+With Dispersed, you can now find available areas on an interactive map, with color-coded road information. You can also get current weather information along with a 5 day forecast, and can save spots you'd like to visit later.
 
-### `npm run build`
+## Demonstration Video
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Dispersed Youtube Demonstation]()
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Technologies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- React
+- JavaScript
+- ArcGIS JavaSript API (mapping)
+- Esri Maps API
+- CSS
 
-### `npm run eject`
+## Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To get Dispersed installed and running, you will need both the dispersed app and the dispersed api. The backend and setup instructions can be found at [Dispersed-API](https://github.com/btken88/dispersed-api). Once you've installed the backend, you can get the frontend running by navigating into the directory, installing node modules and starting the node server:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+cd dispersed-app
+npm install
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Example Code
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```javascript
+<div className='form-page'>
+  <Header />
+  <div className='form-container' onSubmit={toggle ? signUp : signIn}>
+    <h2>{toggle ? 'Sign Up' : 'Sign In'}</h2>
+    <form className='sign-in'>
+      {toggle
+        ? <>
+          <label>Email</label>
+          <input type="text"
+            name="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)} />
+        </>
+        : null}
+      <label>Username</label>
+      <input type="text"
+        name="Username"
+        value={username}
+        onChange={e => setUsername(e.target.value)} />
+      <label>Password</label>
+      <input type="password"
+        name="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)} />
+      <input type='submit' value={toggle ? 'Sign Up' : 'Sign In'} />
+    </form>
+    <div className='toggler'>
+      <p>{toggle ? 'Already have an account?' : 'Need to create an account?'}</p>
+      <button onClick={() => setToggle(!toggle)}>{toggle ? 'Sign In' : 'Sign Up'}</button>
+    </div>
+  </div>
+  <Footer />
+</div>
 
-## Learn More
+useEffect(() => {
+  fetch(elevationAPI)
+    .then(response => response.json())
+    .then(data => {
+      let elevationResult = Math.floor(data.elevationProfile[0].height)
+      setElevation(elevationResult)
+    })
+}, [elevationAPI])
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+const loggedIn = localStorage.getItem('token')
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+let fiveDayForecast = null
+if (daily) {
+  fiveDayForecast = daily.slice(0, 5).map(day => {
+    return (
+      <div className='day' key={day.sunrise}>
+        <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+          alt={day.weather[0].main} />
+        <p>{day.weather[0].main}</p>
+        <p>High: {Math.floor(day.temp.max)}</p>
+        <p>Low: {Math.floor(day.temp.min)}</p>
+      </div>
+    )
+  })
+}
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+function showFavoriteForm(event) {
+  event.stopPropagation()
+  setShowForm(!showForm)
+}
 
-### Analyzing the Bundle Size
+return (
+  <div className='modal-card'>
+    <h2>Current Weather</h2>
+    {weather.current ?
+      (<>
+        <p>Elevation: {elevation} ft.</p>
+        <p>Lat: {point.lat.toFixed(4)}</p>
+        <p>Lon: {point.lng.toFixed(4)}</p>
+        <img src={`http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`}
+          alt={current.weather[0].main} />
+        <p>{current.weather[0].description}</p>
+        <br></br>
+        <p>Current Temp: {Math.floor(current.temp)}</p>
+        <p>Feels like: {Math.floor(current.feels_like)}</p>
+        <p>Humidity: {Math.floor(current.humidity)}%</p>
+        <br></br>
+        <h2>Five Day Forecast</h2>
+        <div className='five-day-forecast'>
+          {fiveDayForecast}
+        </div>
+      </>)
+      : null}
+    <div className='card-buttons'>
+      <a href={`https://www.google.com/maps/dir/''/${lat},${lng}`} target="blank">Get there with Google</a>
+      {loggedIn ? <button onClick={showFavoriteForm}>Add to Favorites</button> : null}
+    </div>
+  </div>
+)
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Features
 
-### Making a Progressive Web App
+Current Features:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Explore the map as a guest user
+- Create a secure login to save, update, and delete favorite sites
+- View details about a location including elevation, lat/lon, current temperature, and a 5-day weather forecast
+- Save favorite sites with notes and view favorited sites as pins on a map
 
-### Advanced Configuration
+Future Features:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- Save campsites either publicly or privately
+- Upload photos of campsites and road conditions
+- Display forest service and weather alerts regarding closures and warnings
+- Refactor current code
 
-### Deployment
+## Status
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+The application is fully functional and ready to be enjoyed as is. Future updates and improvements are still a possibility.
 
-### `npm run build` fails to minify
+## Contact
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Created by [Bryce Kennedy](https://www.linkedin.com/in/bryce-kennedy/)
+
+If you have any questions or comments, suggestions, or bug fixes, feel free to reach out to me.
+
+## License
+
+[Click to view](https://github.com/btken88/dispersed-app/blob/master/license.txt)
