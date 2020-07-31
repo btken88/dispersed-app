@@ -32,10 +32,7 @@ export default function MapContainer({ center, points, zoom }) {
         const graphicsLayer = new GraphicsLayer()
         webmap.add(graphicsLayer)
 
-        console.log('points', points)
-
         points.forEach(point => {
-          console.log(point)
           const newPoint = {
             type: "point",
             longitude: point.lng,
@@ -51,9 +48,21 @@ export default function MapContainer({ center, points, zoom }) {
             }
           }
 
+          const attributes = {
+            Name: `Lat: ${point.lng.toFixed(4)} Lng: ${point.lng.toFixed(4)}`,
+            Notes: point.note
+          }
+
+          const popupTemplate = {
+            title: "{Name}",
+            content: "{Notes}"
+          }
+
           const pointGraphic = new Graphic({
             geometry: newPoint,
-            symbol: marker
+            symbol: marker,
+            attributes,
+            popupTemplate
           })
 
           graphicsLayer.add(pointGraphic)
@@ -69,7 +78,7 @@ export default function MapContainer({ center, points, zoom }) {
         // handle any errors
         console.error(err);
       });
-  }, [points, center]);
+  }, [center, points]);
 
   return (
     <div className="favorites-map" ref={containerRef} />

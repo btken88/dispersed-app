@@ -62,8 +62,14 @@
   box-shadow: 0 0 5px hsla(134, 58%, 26%, 20%);
 }
 
-.favorites h2 {
+.favorites-warning {
   font-size: 60px;
   grid-row: 3;
-  grid-column: 2 / 4;
+  color: #28190e;
+}
+
+.favorites .update {
+  color: #28190e;
+  background-color: transparent;
+  box-shadow: 0 0 5px hsla(134, 58%, 26%, 20%);
 }

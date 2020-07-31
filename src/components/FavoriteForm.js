@@ -39,7 +39,7 @@ export default function FavoriteForm({ point, setShowForm, showForm }) {
       <p>Lat: {formData.lat.toFixed(4)}</p>
       <p>Lng: {formData.lng.toFixed(4)}</p>
       <label>Notes:</label>
-      <input type="textarea" name="note" value={formData.note} onChange={handleChange} />
+      <textarea value={formData.note} onChange={handleChange} />
       <div className="favorite-buttons">
         <button onClick={handleSubmit}>Add Favorite</button>
         <button onClick={() => setShowForm(!showForm)}>Back to Conditions</button>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import MapContainer from './MapContainer'
 import '../component-css/favorites.css'
-import SiteInfo from './SiteInfo'
+import FavoriteSiteInfo from './FavoriteSiteInfo'
 import Header from './Header'
 import Footer from './Footer'
 
@@ -22,11 +22,14 @@ export default function Favorites() {
   }, [])
 
   function favoriteCards() {
+    console.log(favorites)
     return favorites.map(favorite => {
-      return <SiteInfo
+      return <FavoriteSiteInfo
         key={favorite.id}
         favorite={favorite}
-        setSettings={setSettings} />
+        setSettings={setSettings}
+        favorites={favorites}
+        setFavorites={setFavorites} />
     })
   }
 
@@ -37,14 +40,14 @@ export default function Favorites() {
       {token
         ? <>
           <ul className="favorites-list">
-            {favoriteCards()}
+            {favorites.length ? favoriteCards() : <li><p style={{ textAlign: 'center' }}>You don't have any favorites yet. Visit the Map page to add some!</p></li>}
           </ul>
           <MapContainer
             points={favorites}
             center={settings.center}
             zoom={settings.zoom} />
         </>
-        : <h2>You must be logged in to see this page.</h2>
+        : <h2 className='favorite-warning'>You must be logged in to see this page.</h2>
       }
       <Footer />
     </div>

@@ -23,10 +23,11 @@ export default function SignIn() {
         if (result.token) {
           localStorage.setItem('token', result.token)
         } else {
-          alert(result.message)
+          console.log(result)
         }
       })
       .then(history.push('/favorites'))
+      .catch(err => console.log(err))
   }
 
   function signIn(e) {
@@ -39,11 +40,13 @@ export default function SignIn() {
     fetch('http://localhost:5000/login', fetchParams)
       .then(response => response.json())
       .then(result => {
+        console.log(result)
         if (result.token) {
           localStorage.setItem('token', result.token)
           history.push('/favorites')
         } else {
-          alert(result.message)
+          console.log(result.errors)
+          // alert(result.errors)
         }
       })
   }

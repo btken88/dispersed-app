@@ -4,8 +4,8 @@
   justify-content: center;
   z-index: 1;
   background-color: hsla(0, 0%, 0%, 0.4);
+  grid-row: 2 / 5;
   grid-column: 1/4;
-  grid-row: 1/4
 }
 
 .modal-card p {
@@ -21,9 +21,19 @@
   margin-top: 10px;
 }
 
-.modal-card input[type="textarea"] {
-  height: 80px;
-  width: 250px;
+.esri-popup__header {
+  font-size: 16px;
+}
+
+.modal-card textarea {
+  margin-top: 10px;
+  width: 300px;
+}
+
+textarea {
+  height: 100px;
+  font-family: 'Rubik';
+  font-size: 16px;
 }
 
 .modal-card label {

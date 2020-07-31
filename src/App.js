@@ -8,12 +8,6 @@ import Favorites from './components/Favorites';
 import SignIn from './components/SignIn'
 
 function App() {
-  const [favorites, setFavorites] = useState([])
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/favorites')
-  //     .then(response => response.json())
-  //     .then(setFavorites)
-  // }, [])
 
   return (
     <div className="App">
@@ -23,13 +17,13 @@ function App() {
             <HomePage />
           </Route>
           <Route exact path="/map">
-            <MapPage setFavorites={setFavorites} favorites={favorites} />
+            <MapPage />
           </Route>
           <Route exact path="/about">
             <AboutPage />
           </Route>
           <Route exact path="/favorites">
-            <Favorites favorites={favorites} />
+            <Favorites />
           </Route>
           <Route exact path="/login">
             <SignIn />
