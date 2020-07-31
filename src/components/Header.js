@@ -1,8 +1,7 @@
 import React from 'react'
-import { Link, NavLink, useHistory } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 export default function Header() {
   const loggedIn = localStorage.getItem('token')
-  const history = useHistory()
 
   function logOut() {
     localStorage.removeItem('token')

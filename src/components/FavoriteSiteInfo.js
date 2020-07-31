@@ -13,7 +13,7 @@ export default function FavoriteSiteInfo({ favorite, setSettings, favorites, set
   function submitUpdate() {
     const newFavorite = { ...favorite }
     newFavorite.note = note
-    fetch('http://localhost:5000/favorites', {
+    fetch(`http://localhost:5000/favorites/${newFavorite._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -35,11 +35,29 @@ export default function FavoriteSiteInfo({ favorite, setSettings, favorites, set
       center: [lng, lat]
     })
   }
+
+  function deleteFavorite(e) {
+    setUpdate(!update)
+    fetch(`http://localhost:5000/favorites/${favorite._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(() => {
+        const newFavoritesList = favorites.filter(oldFavorite => {
+          return oldFavorite._id !== favorite._id
+        })
+        setFavorites(newFavoritesList)
+      })
+  }
+
   return (
     <div className='site-info'>
       <div className='lat-lng'>
         <p>Lat: {lat.toFixed(4)}</p>
-        <p>Lng: {lng.toFixed(4)}</p>
+        <p>Lon: {lng.toFixed(4)}</p>
       </div>
       <button className='see-site' onClick={chooseFavorite}>See Site</button>
       <p className='note'>Notes:</p>
@@ -47,7 +65,9 @@ export default function FavoriteSiteInfo({ favorite, setSettings, favorites, set
         ? <textarea className='note' value={note} onChange={e => setNote(e.target.value)} />
         : <p className='note'>{note}</p>}
       <button className='update' onClick={update ? submitUpdate : toggleUpdate}>Update</button>
-      <a href={`https://www.google.com/maps/dir/''/${lat},${lng}`} target="blank">Get there with Google</a>
+      {update
+        ? <button className='delete' onClick={deleteFavorite}>Delete</button>
+        : <a href={`https://www.google.com/maps/dir/''/${lat},${lng}`} target="blank">Get there with Google</a>}
     </div>
   )
 }

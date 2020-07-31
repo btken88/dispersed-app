@@ -8,7 +8,7 @@ import Footer from './Footer'
 export default function Favorites() {
   const [settings, setSettings] = useState({
     center: [-105.6598, 39.821],
-    zoom: 11
+    zoom: 9
   })
   const [favorites, setFavorites] = useState([])
 
@@ -22,10 +22,9 @@ export default function Favorites() {
   }, [])
 
   function favoriteCards() {
-    console.log(favorites)
     return favorites.map(favorite => {
       return <FavoriteSiteInfo
-        key={favorite.id}
+        key={favorite._id}
         favorite={favorite}
         setSettings={setSettings}
         favorites={favorites}

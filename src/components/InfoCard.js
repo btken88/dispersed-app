@@ -28,8 +28,8 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
           <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
             alt={day.weather[0].main} />
           <p>{day.weather[0].main}</p>
-          <p>High: {day.temp.max.toFixed(1)}</p>
-          <p>Low: {day.temp.min.toFixed(1)}</p>
+          <p>High: {Math.floor(day.temp.max)}</p>
+          <p>Low: {Math.floor(day.temp.min)}</p>
         </div>
       )
     })
@@ -47,14 +47,14 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
         (<>
           <p>Elevation: {elevation} ft.</p>
           <p>Lat: {point.lat.toFixed(4)}</p>
-          <p>Lng: {point.lng.toFixed(4)}</p>
+          <p>Lon: {point.lng.toFixed(4)}</p>
           <img src={`http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`}
             alt={current.weather[0].main} />
           <p>{current.weather[0].description}</p>
           <br></br>
-          <p>Current Temp: {current.temp.toFixed(1)}</p>
-          <p>Feels like: {current.feels_like.toFixed(1)}</p>
-          <p>Humidity: {current.humidity.toFixed(1)}%</p>
+          <p>Current Temp: {Math.floor(current.temp)}</p>
+          <p>Feels like: {Math.floor(current.feels_like)}</p>
+          <p>Humidity: {Math.floor(current.humidity)}%</p>
           <br></br>
           <h2>Five Day Forecast</h2>
           <div className='five-day-forecast'>

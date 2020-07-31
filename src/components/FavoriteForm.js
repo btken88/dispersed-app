@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-export default function FavoriteForm({ point, setShowForm, showForm }) {
+export default function FavoriteForm({ point, setShowForm, showForm, favorites, setFavorites }) {
   const [formData, setFormData] = useState({
     lat: point.lat,
     lng: point.lng,
@@ -21,7 +21,6 @@ export default function FavoriteForm({ point, setShowForm, showForm }) {
       },
       body: JSON.stringify(formData)
     }).then(response => response.json())
-      .then(console.log)
       .then(history.push('/favorites'))
     setShowForm(!showForm)
   }

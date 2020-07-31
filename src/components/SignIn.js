@@ -13,7 +13,6 @@ export default function SignIn() {
 
   function signUp(e) {
     e.preventDefault()
-    console.log(username, password)
     fetch('http://localhost:5000/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,12 +21,12 @@ export default function SignIn() {
       .then(result => {
         if (result.token) {
           localStorage.setItem('token', result.token)
+          history.push('/favorites')
         } else {
-          console.log(result)
+          return alert(result.errors)
         }
       })
-      .then(history.push('/favorites'))
-      .catch(err => console.log(err))
+      .catch(err => alert(err))
   }
 
   function signIn(e) {
@@ -40,13 +39,11 @@ export default function SignIn() {
     fetch('http://localhost:5000/login', fetchParams)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
         if (result.token) {
           localStorage.setItem('token', result.token)
           history.push('/favorites')
         } else {
-          console.log(result.errors)
-          // alert(result.errors)
+          console.error(result.errors)
         }
       })
   }
