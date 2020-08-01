@@ -22,7 +22,7 @@ export default function FavoriteSiteInfo({ favorite, setSettings, favorites, set
       body: JSON.stringify(newFavorite)
     })
     const newFavoriteList = favorites.map(favorite => {
-      return (favorite.id === newFavorite.id) ? newFavorite : favorite
+      return (favorite._id === newFavorite._id) ? newFavorite : favorite
     })
     setFavorites(newFavoriteList)
     setUpdate(!update)

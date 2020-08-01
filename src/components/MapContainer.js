@@ -78,7 +78,7 @@ export default function MapContainer({ center, points, zoom }) {
         // handle any errors
         console.error(err);
       });
-  }, [center, points]);
+  }, [center, points, zoom]);
 
   return (
     <div className="favorites-map" ref={containerRef} />
