@@ -92,3 +92,35 @@ footer {
 footer a {
   color: #eaede9;
 }
+
+.bug-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 300px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  color: #28190e;
+  background-color: #eaede9;
+  margin-top: -150px;
+  margin-left: -150px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px -2px #1a3220;
+}
+
+.bug-form label {
+  margin: 5px;
+}
+
+.bug-form h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.bug-form input[type='submit'] {
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+  padding: 3px;
+  margin: 10px 0;
+}
