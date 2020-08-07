@@ -6,6 +6,8 @@ export default function FavoriteSiteInfo({ favorite, setSettings, favorites, set
 
   const { lat, lng } = favorite
 
+  const backend = 'https://dispersed-api.herokuapp.com/favorites'
+
   function toggleUpdate() {
     setUpdate(!update)
   }
@@ -13,7 +15,7 @@ export default function FavoriteSiteInfo({ favorite, setSettings, favorites, set
   function submitUpdate() {
     const newFavorite = { ...favorite }
     newFavorite.note = note
-    fetch(`http://localhost:5000/favorites/${newFavorite._id}`, {
+    fetch(`${backend}/${newFavorite._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ export default function FavoriteSiteInfo({ favorite, setSettings, favorites, set
 
   function deleteFavorite(e) {
     setUpdate(!update)
-    fetch(`http://localhost:5000/favorites/${favorite._id}`, {
+    fetch(`${backend}/${favorite._id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

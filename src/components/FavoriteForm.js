@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
+const backend = 'https://dispersed-api.herokuapp.com/'
+
 export default function FavoriteForm({ point, setShowForm, showForm, favorites, setFavorites }) {
   const [formData, setFormData] = useState({
     lat: point.lat,
@@ -13,7 +15,7 @@ export default function FavoriteForm({ point, setShowForm, showForm, favorites, 
   function handleSubmit(e) {
     e.preventDefault()
     const token = localStorage.getItem('token')
-    fetch('http://localhost:5000/favorites', {
+    fetch(backend, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

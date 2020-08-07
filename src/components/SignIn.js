@@ -4,6 +4,8 @@ import '../component-css/sign-in.css'
 import Footer from './Footer'
 import Header from './Header'
 
+const backend = 'https://dispersed-api.herokuapp.com'
+
 export default function SignIn() {
   const [toggle, setToggle] = useState(false)
   const [username, setUsername] = useState('')
@@ -13,7 +15,7 @@ export default function SignIn() {
 
   function signUp(e) {
     e.preventDefault()
-    fetch('http://localhost:5000/register', {
+    fetch(`${backend}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password, email })
@@ -36,7 +38,7 @@ export default function SignIn() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     }
-    fetch('http://localhost:5000/login', fetchParams)
+    fetch(`${backend}/login`, fetchParams)
       .then(response => response.json())
       .then(result => {
         if (result.token) {

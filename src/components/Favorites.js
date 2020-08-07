@@ -5,6 +5,7 @@ import FavoriteSiteInfo from './FavoriteSiteInfo'
 import Header from './Header'
 import Footer from './Footer'
 
+const backend = 'https://dispersed-api.herokuapp.com/favorites'
 export default function Favorites() {
   const [settings, setSettings] = useState({
     center: [-105.6598, 39.821],
@@ -15,7 +16,7 @@ export default function Favorites() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    fetch('http://localhost:5000/favorites', {
+    fetch(backend, {
       headers: { 'Authorization': localStorage.getItem('token') }
     }).then(response => response.json())
       .then(setFavorites)
