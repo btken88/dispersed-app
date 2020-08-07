@@ -6,7 +6,7 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
   const { current, daily } = weather
   const { lat, lng } = point
 
-  const elevationAPI = `http://open.mapquestapi.com/elevation/v1/profile?unit=f&key=${process.env.REACT_APP_MAPQUEST_API_KEY}&latLngCollection=${lat},${lng}`
+  const elevationAPI = `https://open.mapquestapi.com/elevation/v1/profile?unit=f&key=${process.env.REACT_APP_MAPQUEST_API_KEY}&latLngCollection=${lat},${lng}`
 
   useEffect(() => {
     fetch(elevationAPI)
