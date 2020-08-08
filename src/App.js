@@ -6,6 +6,10 @@ import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import Favorites from './components/Favorites';
 import SignIn from './components/SignIn'
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('G-JL1TXETBCN');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 function App() {
 
