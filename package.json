@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "esri-loader": "^2.15.0",
     "esri-loader-hooks": "^0.2.0",
+    "history": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-ga": "^3.1.2",

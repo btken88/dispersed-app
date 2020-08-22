@@ -19,7 +19,7 @@ export default function Modal({ point, setPoint, favorites, setFavorites, props 
     fetch(weatherAPI)
       .then(response => response.json())
       .then(result => setWeather(result))
-  }, [weatherAPI])
+  }, [])
 
 
   return (
