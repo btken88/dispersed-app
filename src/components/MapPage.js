@@ -56,6 +56,7 @@ export default function MapPage({ favorites, setFavorites, ...props }) {
   return (
     <div className="map-page">
       <Header />
+      <p className="map-instructions">Click on the map to view details</p>
       <div className="map-page-map" ref={containerRef} />
       {point.lat
         ? <Modal

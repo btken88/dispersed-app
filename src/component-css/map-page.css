@@ -1,9 +1,15 @@
 .map-page {
   display: grid;
   grid-template-columns: 3% auto 3%;
-  grid-template-rows: 3rem 1.5rem auto 1.5rem 3rem;
+  grid-template-rows: 3rem 2.5rem auto 1.5rem 3rem;
   width: 100%;
   height: 100%;
+}
+
+.map-instructions {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  align-self: center;
 }
 
 .esri-view-surface {
