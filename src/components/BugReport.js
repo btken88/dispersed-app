@@ -14,7 +14,7 @@ export default function BugReport({ bugFormToggle, setBugFormToggle }) {
       bug: bugFormBug
     }
 
-    fetch('http://localhost:5000/bug', {
+    fetch('https://dispersed-api.herokuapp.com/bug', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bugForm)

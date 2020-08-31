@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-const backend = 'https://dispersed-api.herokuapp.com/'
+const backend = 'https://dispersed-api.herokuapp.com/favorites'
 
 export default function FavoriteForm({ point, setShowForm, showForm, favorites, setFavorites }) {
   const [formData, setFormData] = useState({
