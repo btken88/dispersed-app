@@ -16,11 +16,12 @@ export default function Favorites() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
+    document.title = "Dispersed - Favorites";
     fetch(backend, {
       headers: { 'Authorization': localStorage.getItem('token') }
     }).then(response => response.json())
       .then(setFavorites)
-  }, [])
+  }, []);
 
   function favoriteCards() {
     return favorites.map(favorite => {

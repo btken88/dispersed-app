@@ -12,6 +12,7 @@ export default function MapPage({ favorites, setFavorites, ...props }) {
   const containerRef = useRef()
 
   useEffect(() => {
+    document.title = "Dispersed - Map"
     // Code here from ArcGIS documentation
     // this will lazy load the ArcGIS API
     // and then use Dojo's loader to require the classes
