@@ -1,14 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { createBrowserHistory } from "history";
 import MapPage from "./components/MapPage";
 import HomePage from "./components/HomePage";
 import AboutPage from "./components/AboutPage";
 import Favorites from "./components/Favorites";
 import SignIn from "./components/SignIn";
-
-const history = createBrowserHistory();
 
 function App() {
   return (
