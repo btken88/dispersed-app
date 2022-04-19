@@ -4,8 +4,7 @@ import "../component-css/sign-in.css";
 import Footer from "./Footer";
 import Header from "./Header";
 
-// const backend = "https://dispersed-api.herokuapp.com";
-const backend = "http://localhost:3001";
+const backend = "https://dispersed-api.herokuapp.com";
 
 export default function SignIn() {
   const [toggle, setToggle] = useState(false);
@@ -54,10 +53,9 @@ export default function SignIn() {
         if (result.token) {
           localStorage.setItem("token", result.token);
           history.push("/favorites");
-        } else {
-          setErrors(result.errors);
         }
-      });
+      })
+      .catch((error) => setErrors(error.errors));
   }
 
   function errorList() {
