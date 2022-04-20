@@ -34,7 +34,9 @@ export default function SignIn() {
           setErrors(result.errors);
         }
       })
-      .catch((err) => alert(err));
+      .catch(({ errors }) => {
+        setErrors(errors);
+      });
   }
 
   function signIn(e) {
@@ -53,6 +55,8 @@ export default function SignIn() {
         if (result.token) {
           localStorage.setItem("token", result.token);
           history.push("/favorites");
+        } else {
+          setErrors(result.errors);
         }
       })
       .catch((error) => setErrors(error.errors));
@@ -60,7 +64,12 @@ export default function SignIn() {
 
   function errorList() {
     return errors.map((error) => {
-      return <p className="error-message">{error.msg}</p>;
+      const message = error.msg ? error.msg : error;
+      return (
+        <p className="error-message" id={message}>
+          {message}
+        </p>
+      );
     });
   }
 
