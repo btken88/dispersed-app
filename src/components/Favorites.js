@@ -5,7 +5,7 @@ import FavoriteSiteInfo from "./FavoriteSiteInfo";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const backend = `${process.env.API_URL}/favorites`;
+const backend = `${process.env.REACT_APP_API_URL}/favorites`;
 export default function Favorites() {
   const [settings, setSettings] = useState({
     center: [-105.6598, 39.821],

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const backend = `${process.env.API_URL}/favorites`;
+const backend = `${process.env.REACT_APP_API_URL}/favorites`;
 
 export default function FavoriteForm({
   point,

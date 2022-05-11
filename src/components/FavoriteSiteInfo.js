@@ -11,7 +11,7 @@ export default function FavoriteSiteInfo({
 
   const { lat, lng } = favorite;
 
-  const backend = `${process.env.API_URL}/favorites`;
+  const backend = `${process.env.REACT_APP_API_URL}/favorites`;
 
   function toggleUpdate() {
     setUpdate(!update);
