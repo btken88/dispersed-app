@@ -1,41 +1,52 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-const backend = 'https://dispersed-api.herokuapp.com/favorites'
+const backend = `${process.env.API_URL}/favorites`;
 
-export default function FavoriteForm({ point, setShowForm, showForm, favorites, setFavorites }) {
+export default function FavoriteForm({
+  point,
+  setShowForm,
+  showForm,
+  favorites,
+  setFavorites,
+}) {
   const [formData, setFormData] = useState({
     lat: point.lat,
     lng: point.lng,
-    note: ""
-  })
+    note: "",
+  });
 
-  const history = useHistory()
+  const history = useHistory();
 
   function handleSubmit(e) {
-    e.preventDefault()
-    const token = localStorage.getItem('token')
+    e.preventDefault();
+    const token = localStorage.getItem("token");
     fetch(backend, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
+        "Content-Type": "application/json",
+        Authorization: token,
       },
-      body: JSON.stringify(formData)
-    }).then(response => response.json())
-      .then(history.push('/favorites'))
-    setShowForm(!showForm)
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then(history.push("/favorites"));
+    setShowForm(!showForm);
   }
 
   function handleChange(e) {
     setFormData({
       ...formData,
-      note: e.target.value
-    })
+      note: e.target.value,
+    });
   }
 
   return (
-    <form onSubmit={handleSubmit} onClick={e => e.stopPropagation()} className="modal-card">
+    <form
+      onSubmit={handleSubmit}
+      onClick={(e) => e.stopPropagation()}
+      className="modal-card"
+    >
       <h2>Add Site to Favorites</h2>
       <p>Lat: {formData.lat.toFixed(4)}</p>
       <p>Lng: {formData.lng.toFixed(4)}</p>
@@ -43,8 +54,10 @@ export default function FavoriteForm({ point, setShowForm, showForm, favorites, 
       <textarea value={formData.note} onChange={handleChange} />
       <div className="favorite-buttons">
         <button onClick={handleSubmit}>Add Favorite</button>
-        <button onClick={() => setShowForm(!showForm)}>Back to Conditions</button>
+        <button onClick={() => setShowForm(!showForm)}>
+          Back to Conditions
+        </button>
       </div>
     </form>
-  )
+  );
 }
