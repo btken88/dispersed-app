@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import InfoCard from './InfoCard'
 import FavoriteForm from './FavoriteForm'
+import api from '../services/api'
 import '../component-css/Modal.css'
 
-const exclusions = 'minutely,hourly'
-
 export default function Modal({ point, setPoint, favorites, setFavorites, props }) {
-  const weatherAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${point.lat}&lon=${point.lng}&exclude=${exclusions}&units=imperial&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`
   const [weather, setWeather] = useState({})
   const [showForm, setShowForm] = useState(false)
-
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   function handleClick() {
     setPoint({})
   }
 
   useEffect(() => {
-    fetch(weatherAPI)
-      .then(response => response.json())
-      .then(result => setWeather(result))
-  }, [])
+    const fetchWeather = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await api.getWeather(point.lat, point.lng);
+        setWeather(data);
+      } catch (err) {
+        console.error('Failed to fetch weather:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (point.lat && point.lng) {
+      fetchWeather();
+    }
+  }, [point.lat, point.lng])
 
 
   return (

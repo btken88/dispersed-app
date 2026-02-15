@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const backend = `${process.env.REACT_APP_API_URL}/favorites`;
 
@@ -16,7 +16,7 @@ export default function FavoriteForm({
     note: "",
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,7 +30,7 @@ export default function FavoriteForm({
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then(history.push("/favorites"));
+      .then(() => navigate("/favorites"));
     setShowForm(!showForm);
   }
 

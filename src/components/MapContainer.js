@@ -4,33 +4,49 @@ import { loadModules } from 'esri-loader'
 
 export default function MapContainer({ center, points, zoom }) {
   const containerRef = useRef()
+  const viewRef = useRef(null)
+
+  // USFS Motor Vehicle Use Map (MVUM) service
+  const MVUM_SERVICE_URL = 'https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_MVUM_02/MapServer';
+
   useEffect(() => {
-    // Code here from ArcGIS documentation
-    // this will lazy load the ArcGIS API
-    // and then use Dojo's loader to require the classes
+    let isMounted = true;
+
+    // Load ArcGIS API modules
     loadModules([
       'esri/views/MapView',
-      'esri/WebMap',
+      'esri/Map',
+      'esri/layers/MapImageLayer',
       'esri/Graphic',
       'esri/layers/GraphicsLayer'
     ])
-      .then(([MapView, WebMap, Graphic, GraphicsLayer]) => {
-        // then we load a web map from an id
-        const webmap = new WebMap({
-          portalItem: { // autocasts as new PortalItem()
-            id: '8721657ca98f4cbc9e9411a03da37951'
-          }
+      .then(([MapView, Map, MapImageLayer, Graphic, GraphicsLayer]) => {
+        if (!isMounted) return;
+
+        // Create the MVUM layer from the Map Service
+        const mvumLayer = new MapImageLayer({
+          url: MVUM_SERVICE_URL,
+          title: 'USFS Motor Vehicle Use Map'
         });
-        // and we show that map in a container w/ id #viewDiv
+
+        // Create a map with the MVUM layer
+        const map = new Map({
+          basemap: 'topo-vector',
+          layers: [mvumLayer]
+        });
+
+        // Show the map in a container
         const view = new MapView({
-          map: webmap,
+          map: map,
           container: containerRef.current,
           center: center,
           zoom: zoom
         });
 
+        viewRef.current = view;
+
         const graphicsLayer = new GraphicsLayer()
-        webmap.add(graphicsLayer)
+        map.add(graphicsLayer)
 
         points.forEach(point => {
           const newPoint = {
@@ -67,17 +83,19 @@ export default function MapContainer({ center, points, zoom }) {
 
           graphicsLayer.add(pointGraphic)
         })
-        return () => {
-          if (view) {
-            // destroy the map view
-            view.container = null;
-          }
-        };
       })
       .catch(err => {
         // handle any errors
-        console.error(err);
+        console.error('Error loading map:', err);
       });
+
+    return () => {
+      isMounted = false;
+      if (viewRef.current) {
+        viewRef.current.destroy();
+        viewRef.current = null;
+      }
+    };
   }, [center, points, zoom]);
 
   return (
