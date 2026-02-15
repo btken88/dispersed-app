@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react'
-
+import api from '../services/api'
 
 export default function InfoCard({ weather, point, setShowForm, showForm }) {
   const [elevation, setElevation] = useState(null)
   const { current, daily } = weather
   const { lat, lng } = point
 
-  const elevationAPI = `https://open.mapquestapi.com/elevation/v1/profile?unit=f&key=${process.env.REACT_APP_MAPQUEST_API_KEY}&latLngCollection=${lat},${lng}`
-
   useEffect(() => {
-    fetch(elevationAPI)
-      .then(response => response.json())
-      .then(data => {
-        let elevationResult = Math.floor(data.elevationProfile[0].height)
-        setElevation(elevationResult)
-      })
-  }, [elevationAPI])
+    const fetchElevation = async () => {
+      try {
+        const data = await api.getElevation(lat, lng);
+        setElevation(data.elevation);
+      } catch (error) {
+        console.error('Failed to fetch elevation:', error);
+        setElevation(null);
+      }
+    };
+    
+    fetchElevation();
+  }, [lat, lng])
 
   const loggedIn = localStorage.getItem('token')
 
