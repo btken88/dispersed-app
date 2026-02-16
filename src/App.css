@@ -48,7 +48,7 @@ body {
 }
 
 #header {
-  z-index: 1;
+  z-index: 1000;
   padding: 0 30px;
   width: 100vw;
   height: 3rem;
@@ -58,6 +58,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 #header a {
@@ -73,6 +74,41 @@ body {
 #header li {
   padding: 5px;
   margin-right: 15px;
+}
+
+/* Hamburger Menu Button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background-color: #eaede9;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 footer {
@@ -98,6 +134,80 @@ footer a {
   flex-direction: column;
   padding: 20px;
   width: 300px;
+}
+
+/* Mobile responsive navigation */
+@media (max-width: 968px) {
+  #header {
+    padding: 10px 15px;
+  }
+
+  #header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  /* Show hamburger button on mobile */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hide navigation by default on mobile */
+  .navigation {
+    position: fixed;
+    top: 3rem;
+    left: 0;
+    right: 0;
+    background-color: #2a5033;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Show navigation when mobile menu is open */
+  .navigation.mobile-open {
+    max-height: 500px;
+  }
+
+  #header ul {
+    display: flex;
+  }
+
+  #header li {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(234, 237, 233, 0.2);
+  }
+
+  #header li a {
+    display: block;
+    padding: 15px 20px;
+    width: 100%;
+  }
+
+  #header li:last-child {
+    border-bottom: none;
+  }
+
+  footer {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .bug-form {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+
+.bug-form {
   position: fixed;
   top: 50%;
   left: 50%;

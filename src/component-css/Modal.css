@@ -87,3 +87,52 @@ textarea {
 .modal-card a {
   padding: 6px;
 }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .modal-card {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .modal-card h2 {
+    font-size: 24px;
+  }
+
+  .modal-card textarea {
+    width: 100%;
+  }
+
+  .five-day-forecast {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .day {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .card-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-buttons a,
+  .card-buttons button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .favorite-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .favorite-buttons button {
+    width: 100%;
+  }
+}
