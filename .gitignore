@@ -25,8 +25,3 @@ yarn-error.log*
 # Build artifacts
 build/
 .firebase/
-
-# Playwright artifacts
-playwright-report/
-test-results/
-.playwright/
