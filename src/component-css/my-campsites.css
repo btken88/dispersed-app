@@ -1,0 +1,246 @@
+.my-campsites {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.campsites-container {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.campsites-container h1 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.auth-required {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.auth-required h2 {
+  color: #666;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c00;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-state p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.campsites-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.campsite-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.campsite-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.campsite-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.campsite-header h3 {
+  margin: 0;
+  color: #333;
+  flex: 1;
+}
+
+.visibility-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-private {
+  background-color: #ffeaa7;
+  color: #856404;
+}
+
+.badge-unlisted {
+  background-color: #dfe6e9;
+  color: #2d3436;
+}
+
+.badge-public {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.campsite-location {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.campsite-description {
+  color: #555;
+  margin: 15px 0;
+  line-height: 1.5;
+  max-height: 4.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campsite-photos {
+  margin: 15px 0;
+}
+
+.campsite-rating {
+  color: #666;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.campsite-share {
+  margin: 15px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.campsite-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.campsite-actions button,
+.campsite-actions a {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.view-button {
+  background-color: #9C27B0;
+  color: white;
+}
+
+.view-button:hover {
+  background-color: #7B1FA2;
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.details-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.details-button:hover {
+  background-color: #1976D2;
+}
+
+.directions-link {
+  background-color: #FF9800;
+  color: white;
+}
+
+.directions-link:hover {
+  background-color: #F57C00;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  margin-left: auto;
+}
+
+.delete-button:hover {
+  background-color: #da190b;
+}
+
+.campsite-details {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+  color: #666;
+}
+
+.detail-row {
+  margin: 8px 0;
+}
+
+.detail-row strong {
+  color: #333;
+  margin-right: 8px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .campsites-list {
+    grid-template-columns: 1fr;
+  }
+
+  .campsite-actions {
+    flex-direction: column;
+  }
+
+  .campsite-actions button,
+  .campsite-actions a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .delete-button {
+    margin-left: 0;
+  }
+}

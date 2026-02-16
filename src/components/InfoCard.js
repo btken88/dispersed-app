@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../services/api'
 
-export default function InfoCard({ weather, point, setShowForm, showForm }) {
+export default function InfoCard({ weather, point, setShowForm, showForm, setShowCampsiteForm }) {
   const [elevation, setElevation] = useState(null)
   const { current, daily } = weather
   const { lat, lng } = point
@@ -16,7 +16,7 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
         setElevation(null);
       }
     };
-    
+
     fetchElevation();
   }, [lat, lng])
 
@@ -43,6 +43,13 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
     setShowForm(!showForm)
   }
 
+  function showCreateCampsiteForm(event) {
+    event.stopPropagation()
+    if (setShowCampsiteForm) {
+      setShowCampsiteForm(true)
+    }
+  }
+
   return (
     <div className='modal-card'>
       <h2>Current Weather</h2>
@@ -67,7 +74,12 @@ export default function InfoCard({ weather, point, setShowForm, showForm }) {
         : null}
       <div className='card-buttons'>
         <a href={`https://www.google.com/maps/dir/''/${lat},${lng}`} target="blank">Get there with Google</a>
-        {loggedIn ? <button onClick={showFavoriteForm}>Add to Favorites</button> : null}
+        {loggedIn && (
+          <>
+            <button onClick={showCreateCampsiteForm}>Create Campsite</button>
+            <button onClick={showFavoriteForm}>Add to Favorites</button>
+          </>
+        )}
       </div>
     </div>
   )

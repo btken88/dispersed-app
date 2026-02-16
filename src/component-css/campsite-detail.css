@@ -1,0 +1,260 @@
+.campsite-detail {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-container {
+  flex: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.loading-detail,
+.error-detail {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.error-detail h2 {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.error-detail button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.error-detail button:hover {
+  background-color: #45a049;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.detail-header h1 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.header-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.unlisted-notice {
+  font-size: 13px;
+  color: #666;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.visibility-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.badge-private {
+  background-color: #ffeaa7;
+  color: #856404;
+}
+
+.badge-unlisted {
+  background-color: #dfe6e9;
+  color: #2d3436;
+}
+
+.badge-public {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.edit-campsite-button {
+  padding: 10px 20px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.edit-campsite-button:hover {
+  background-color: #1976D2;
+}
+
+.detail-location {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.directions-link {
+  padding: 6px 12px;
+  background-color: #FF9800;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: background-color 0.2s ease;
+}
+
+.directions-link:hover {
+  background-color: #F57C00;
+}
+
+.detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.review-count {
+  color: #666;
+  font-size: 14px;
+}
+
+.detail-description {
+  margin-bottom: 30px;
+}
+
+.detail-description h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.detail-description p {
+  color: #555;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.detail-photos {
+  margin-bottom: 40px;
+}
+
+.detail-photos h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.detail-reviews {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 2px solid #eee;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.reviews-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.add-review-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-review-button:hover {
+  background-color: #45a049;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .detail-container {
+    padding: 15px;
+  }
+
+  .detail-header {
+    flex-direction: column;
+  }
+
+  .detail-header h1 {
+    font-size: 24px;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .header-actions > * {
+    width: 100%;
+  }
+
+  .edit-campsite-button {
+    width: 100%;
+  }
+
+  .detail-location {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .directions-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .reviews-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-review-button {
+    width: 100%;
+  }
+}

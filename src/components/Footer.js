@@ -9,7 +9,7 @@ export default function Footer() {
       {bugFormToggle
         ? <BugReport bugFormToggle={bugFormToggle} setBugFormToggle={setBugFormToggle} />
         : null}
-      <a href="https://www.linkedin.com/in/bryce-kennedy">By Bryce Kennedy</a>
+      <span>Dispersed Camping Finder</span>
       <button onClick={() => setBugFormToggle(!bugFormToggle)}>Report a Bug</button>
     </footer>
   )

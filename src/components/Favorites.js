@@ -4,6 +4,7 @@ import "../component-css/favorites.css";
 import FavoriteSiteInfo from "./FavoriteSiteInfo";
 import Header from "./Header";
 import Footer from "./Footer";
+import SEO from "./SEO";
 
 const backend = `${process.env.REACT_APP_API_URL}/favorites`;
 export default function Favorites() {
@@ -40,6 +41,10 @@ export default function Favorites() {
 
   return (
     <div className="favorites">
+      <SEO 
+        title="My Favorites - Dispersed"
+        description="View and manage your saved dispersed camping locations with interactive maps and weather information."
+      />
       <Header />
       {token ? (
         <>

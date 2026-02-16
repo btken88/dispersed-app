@@ -73,3 +73,34 @@
   background-color: transparent;
   box-shadow: 0 0 5px hsla(134, 58%, 26%, 20%);
 }
+
+/* Mobile responsive */
+@media (max-width: 968px) {
+  .favorites {
+    grid-template-columns: 1.5% auto 1.5%;
+    grid-template-rows: 3rem 1rem auto 1rem 3rem;
+  }
+
+  .favorites-list {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .favorites-map {
+    display: none;
+  }
+
+  .site-info {
+    font-size: 14px;
+  }
+
+  .site-info button {
+    margin-top: 5px;
+  }
+
+  .favorites-warning {
+    font-size: 32px;
+    padding: 20px;
+    text-align: center;
+  }
+}

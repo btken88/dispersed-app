@@ -24,15 +24,15 @@ export function CampsiteProvider({ children }) {
     try {
       setLoading(true);
       setError(null);
-      
+
       const data = await api.campsites.list(getToken);
       setCampsites(data);
-      
+
       // Filter user's own campsites
       if (user) {
         setUserCampsites(data.filter(c => c.userId === user.uid));
       }
-      
+
       return data;
     } catch (err) {
       setError(err.message);
@@ -47,11 +47,11 @@ export function CampsiteProvider({ children }) {
     try {
       setLoading(true);
       setError(null);
-      
+
       const newCampsite = await api.campsites.create(campsiteData, getToken);
       setCampsites([...campsites, newCampsite]);
       setUserCampsites([...userCampsites, newCampsite]);
-      
+
       return newCampsite;
     } catch (err) {
       setError(err.message);
@@ -66,12 +66,12 @@ export function CampsiteProvider({ children }) {
     try {
       setLoading(true);
       setError(null);
-      
+
       const updatedCampsite = await api.campsites.update(id, updates, getToken);
-      
+
       setCampsites(campsites.map(c => c.id === id ? updatedCampsite : c));
       setUserCampsites(userCampsites.map(c => c.id === id ? updatedCampsite : c));
-      
+
       return updatedCampsite;
     } catch (err) {
       setError(err.message);
@@ -86,7 +86,7 @@ export function CampsiteProvider({ children }) {
     try {
       setLoading(true);
       setError(null);
-      
+
       await api.campsites.delete(id, getToken);
 
       setCampsites(campsites.filter(c => c.id !== id));

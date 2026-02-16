@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { loadModules, loadCss } from 'esri-loader'
 import Modal from './Modal'
+import SEO from './SEO'
 import '../component-css/map-page.css'
 import Header from './Header'
 import Footer from './Footer'
@@ -91,6 +92,10 @@ export default function MapPage({ favorites, setFavorites, ...props }) {
 
   return (
     <div className="map-page">
+      <SEO 
+        title="Interactive Map - Dispersed Camping Locations"
+        description="Explore National Forest Motor Vehicle Use Maps to find dispersed camping locations. Click anywhere to get weather forecasts and save favorite spots."
+      />
       <Header />
       {loading && <div className="loading">Loading map...</div>}
       {error && <div className="error">{error}</div>}
