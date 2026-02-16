@@ -21,11 +21,7 @@ export default function CampsiteDetail() {
   const [error, setError] = useState(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  useEffect(() => {
-    fetchCampsite();
-  }, [id]);
-
-  async function fetchCampsite() {
+  const fetchCampsite = React.useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -38,7 +34,11 @@ export default function CampsiteDetail() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [id, getToken]);
+
+  useEffect(() => {
+    fetchCampsite();
+  }, [fetchCampsite]);
 
   function handleReviewSubmitted() {
     setShowReviewForm(false);

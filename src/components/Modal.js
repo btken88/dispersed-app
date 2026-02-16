@@ -9,8 +9,6 @@ export default function Modal({ point, setPoint, favorites, setFavorites, props 
   const [weather, setWeather] = useState({})
   const [showForm, setShowForm] = useState(false)
   const [showCampsiteForm, setShowCampsiteForm] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
 
   function handleClick() {
     setPoint({})
@@ -19,15 +17,10 @@ export default function Modal({ point, setPoint, favorites, setFavorites, props 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        setLoading(true);
-        setError(null);
         const data = await api.getWeather(point.lat, point.lng);
         setWeather(data);
       } catch (err) {
         console.error('Failed to fetch weather:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
       }
     };
 

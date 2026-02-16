@@ -15,11 +15,7 @@ export default function ReviewList({ campsiteId }) {
   const [lastDoc, setLastDoc] = useState(null);
   const [editingReview, setEditingReview] = useState(null);
 
-  useEffect(() => {
-    fetchReviews();
-  }, [campsiteId, sortBy]);
-
-  async function fetchReviews(append = false) {
+  const fetchReviews = React.useCallback(async (append = false) => {
     try {
       setLoading(true);
       setError(null);
@@ -36,7 +32,7 @@ export default function ReviewList({ campsiteId }) {
       const data = await api.reviews.list(campsiteId, options);
 
       if (append) {
-        setReviews([...reviews, ...data.reviews]);
+        setReviews(prevReviews => [...prevReviews, ...data.reviews]);
       } else {
         setReviews(data.reviews);
       }
@@ -49,7 +45,11 @@ export default function ReviewList({ campsiteId }) {
     } finally {
       setLoading(false);
     }
-  }
+  }, [campsiteId, sortBy, lastDoc]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   function handleSortChange(newSort) {
     setSortBy(newSort);

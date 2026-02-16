@@ -61,7 +61,7 @@ export default function SearchPage() {
     if (sortBy !== 'newest') params.sort = sortBy;
     
     setSearchParams(params);
-  }, [searchText, latitude, longitude, radius, minRating, hasPhotos, sortBy]);
+  }, [searchText, latitude, longitude, radius, minRating, hasPhotos, sortBy, setSearchParams]);
 
   const performSearch = useCallback(async () => {
     setLoading(true);
@@ -106,7 +106,7 @@ export default function SearchPage() {
     if (debouncedSearchText || latitude || minRating || hasPhotos || searched) {
       performSearch();
     }
-  }, [debouncedSearchText, latitude, longitude, radius, minRating, hasPhotos, sortBy]);
+  }, [performSearch, debouncedSearchText, latitude, minRating, hasPhotos, searched]);
 
   function useCurrentLocation() {
     if (navigator.geolocation) {

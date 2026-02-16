@@ -26,14 +26,7 @@ export default function CampsiteForm({
     visibility: initialData?.visibility || 'private'
   });
 
-  // Fetch campsite details if editing
-  useEffect(() => {
-    if (campsiteId) {
-      fetchCampsite();
-    }
-  }, [campsiteId]);
-
-  async function fetchCampsite() {
+  const fetchCampsite = React.useCallback(async () => {
     try {
       const data = await api.campsites.get(campsiteId, getToken);
       setCampsite(data);
@@ -48,7 +41,14 @@ export default function CampsiteForm({
       console.error('Failed to fetch campsite:', err);
       setError('Failed to load campsite details');
     }
-  }
+  }, [campsiteId, getToken]);
+
+  // Fetch campsite details if editing
+  useEffect(() => {
+    if (campsiteId) {
+      fetchCampsite();
+    }
+  }, [campsiteId, fetchCampsite]);
 
   function handleChange(e) {
     const { name, value } = e.target;

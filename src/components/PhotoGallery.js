@@ -19,24 +19,24 @@ export default function PhotoGallery({
     document.body.style.overflow = 'hidden';
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = React.useCallback(() => {
     setLightboxOpen(false);
     document.body.style.overflow = 'auto';
-  };
+  }, []);
 
-  const nextImage = (e) => {
+  const nextImage = React.useCallback((e) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) => 
       prevIndex === photos.length - 1 ? 0 : prevIndex + 1
     );
-  };
+  }, [photos.length]);
 
-  const prevImage = (e) => {
+  const prevImage = React.useCallback((e) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) => 
       prevIndex === 0 ? photos.length - 1 : prevIndex - 1
     );
-  };
+  }, [photos.length]);
 
   const handleDelete = async (e, photoId) => {
     e.stopPropagation();
@@ -65,7 +65,7 @@ export default function PhotoGallery({
     }
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = React.useCallback((e) => {
     if (!lightboxOpen) return;
     
     if (e.key === 'Escape') {
@@ -75,7 +75,7 @@ export default function PhotoGallery({
     } else if (e.key === 'ArrowLeft') {
       prevImage(e);
     }
-  };
+  }, [lightboxOpen, closeLightbox, nextImage, prevImage]);
 
   React.useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -83,7 +83,7 @@ export default function PhotoGallery({
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
-  }, [lightboxOpen, currentImageIndex]);
+  }, [handleKeyDown]);
 
   if (!photos || photos.length === 0) {
     return <div className="no-photos">No photos yet</div>;
