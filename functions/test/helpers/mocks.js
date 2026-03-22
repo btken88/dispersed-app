@@ -209,11 +209,10 @@ function mockSuccessfulWeatherAPI(data = { current: { temp: 72 } }) {
 }
 
 function mockSuccessfulElevationAPI(elevationMeters = 1000) {
-  process.env.MAPQUEST_API_KEY = 'test-api-key';
   global.fetch.mockResolvedValue({
     ok: true,
     json: jest.fn().mockResolvedValue({
-      elevationProfile: [{ height: elevationMeters }]
+      elevation: [elevationMeters]
     })
   });
 }

@@ -43,18 +43,21 @@ describe('Elevation API', () => {
       expect(response.body.error).toContain('longitude');
     });
 
-    it('should handle missing API key', async () => {
-      delete process.env.MAPQUEST_API_KEY;
+    it('should handle empty elevation response', async () => {
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: jest.fn().mockResolvedValue({
+          elevation: []
+        })
+      });
 
       const response = await request(app)
         .get('/api/elevation/40.0/-105.0');
 
-      expect(response.status).toBe(503);
+      expect(response.status).toBe(500);
     });
 
     it('should handle API errors', async () => {
-      process.env.MAPQUEST_API_KEY = 'test-api-key';
-
       global.fetch.mockResolvedValue({
         ok: false,
         status: 401,
@@ -82,11 +85,10 @@ describe('Elevation API', () => {
     });
 
     it('should handle missing elevation data', async () => {
-      process.env.MAPQUEST_API_KEY = 'test-key';
       global.fetch.mockResolvedValue({
         ok: true,
         json: jest.fn().mockResolvedValue({
-          elevationProfile: [] // Empty array
+          elevation: [] // Empty array
         })
       });
 
@@ -97,7 +99,6 @@ describe('Elevation API', () => {
     });
 
     it('should handle fetch errors', async () => {
-      process.env.MAPQUEST_API_KEY = 'test-key';
       global.fetch.mockRejectedValue(new Error('Network error'));
 
       const response = await request(app)
