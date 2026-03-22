@@ -8,9 +8,12 @@
   - [Inspiration](#inspiration)
   - [Demonstration Video](#demonstration-video)
   - [Technologies](#technologies)
+  - [Project Structure](#project-structure)
   - [Setup](#setup)
   - [Development](#development)
+  - [Testing](#testing)
   - [Deployment](#deployment)
+  - [API Endpoints](#api-endpoints)
   - [Example Code](#example-code)
   - [Features](#features)
   - [Status](#status)
@@ -19,7 +22,7 @@
 
 ## General Info
 
-Dispersed is a modern React web application that allows users to explore the National Forest system to find and save dispersed camping sites. Built with React 18, Firebase Authentication, and Context API for state management, it provides a seamless experience for discovering and managing camping locations.
+Dispersed is a full-stack web application that allows users to explore the National Forest system to find and save dispersed camping sites. This monorepo contains both the React frontend and the Firebase Functions API backend, enabling unified development, testing, and deployment.
 
 ## Inspiration
 
@@ -33,36 +36,101 @@ With Dispersed, you can now find available areas on an interactive map with colo
 
 ## Technologies
 
+### Frontend
 - **React 18**: Modern React with concurrent features
 - **React Router v6**: Client-side routing
 - **Firebase Authentication**: Secure user authentication
 - **Context API**: Global state management (AuthContext, CampsiteContext)
 - **ArcGIS JavaScript API v4.x**: Interactive mapping with esri-loader v3
-- **Axios**: HTTP client for API communication
 - **CSS3**: Responsive styling
+
+### Backend (Firebase Functions)
+- **Node.js 20**: Server runtime
+- **Express.js 4**: REST API framework
+- **Firebase Functions (Gen 2)**: Serverless hosting
+- **Firebase Admin SDK**: Server-side Firebase operations
+- **Firestore**: NoSQL database
+- **Cloud Storage**: Photo uploads
+- **Helmet.js**: Security headers
+- **express-rate-limit**: Rate limiting (100 requests per 15 minutes)
+- **express-validator**: Input validation
+- **sharp**: Image processing for photo uploads
+- **geofire-common**: Geographic search with geohashing
+
+## Project Structure
+
+```
+dispersed-app/
+├── public/                      # Static assets (index.html, favicon, etc.)
+├── src/                         # React frontend source
+│   ├── components/              # React components
+│   ├── component-css/           # Component stylesheets
+│   ├── contexts/                # Context providers (Auth, Campsite)
+│   ├── services/                # API client
+│   ├── firebase.js              # Firebase SDK initialization
+│   ├── App.js                   # Root component with routing
+│   └── index.js                 # Entry point
+├── functions/                   # Firebase Functions API backend
+│   ├── index.js                 # Express app & function export
+│   ├── middleware/              # Auth middleware
+│   │   └── auth.js              # Firebase token verification
+│   ├── routes/                  # API route handlers
+│   │   ├── campsites.js         # Campsite CRUD
+│   │   ├── weather.js           # Weather data (OpenWeatherMap)
+│   │   ├── elevation.js         # Elevation data (Open-Meteo)
+│   │   ├── photos.js            # Photo upload/delete
+│   │   ├── reviews.js           # Review system
+│   │   ├── search.js            # Search & filtering
+│   │   └── bug.js               # Bug reports
+│   ├── test/                    # API tests (Jest + Supertest)
+│   │   ├── helpers/mocks.js     # Shared test mocks
+│   │   ├── middleware/          # Middleware tests
+│   │   └── routes/              # Route handler tests
+│   ├── package.json             # API dependencies
+│   └── jest.config.js           # Test configuration
+├── firebase.json                # Firebase project configuration
+├── firestore.rules              # Firestore security rules
+├── firestore.indexes.json       # Firestore composite indexes
+├── storage.rules                # Cloud Storage security rules
+├── .firebaserc                  # Firebase project alias
+├── .env.example                 # Environment variables template
+└── package.json                 # Frontend dependencies & monorepo scripts
+```
 
 ## Setup
 
 ### Prerequisites
 
-- Node.js 18+
-- Firebase project with Authentication and Firestore enabled
+- Node.js 20+
+- Firebase CLI (`npm install -g firebase-tools`)
+- Firebase project with Authentication, Firestore, and Storage enabled
 - ArcGIS Developer account for Web Map
 
 ### Installation
 
-1. Clone the repository and navigate to the app directory:
+1. Clone the repository:
 ```bash
+git clone https://github.com/btken88/dispersed-app.git
 cd dispersed-app
+```
+
+2. Install frontend dependencies:
+```bash
 npm install
 ```
 
-2. Copy the environment template and configure:
+3. Install API (functions) dependencies:
 ```bash
-cp .env.example .env
+npm run install:functions
 ```
 
-3. Update `.env` with your credentials:
+4. Copy the environment template and configure:
+```bash
+cp .env.example .env
+cp functions/.env.example functions/.env
+```
+
+5. Update `.env` with your credentials:
 ```env
 # Firebase Configuration
 REACT_APP_FIREBASE_API_KEY=your_api_key
@@ -72,33 +140,133 @@ REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 REACT_APP_FIREBASE_APP_ID=your_app_id
 
-# API Configuration
-REACT_APP_API_URL=http://localhost:5001/your-project-id/us-central1/api
+# API Configuration (use emulator URL for local dev)
+REACT_APP_API_URL=http://localhost:5001/dispersed/us-central1/api
+```
 
-# ArcGIS Configuration
-REACT_APP_ARCGIS_WEBMAP_ID=your_webmap_id
+6. Login to Firebase:
+```bash
+firebase login
+firebase use your-project-id
 ```
 
 ## Development
 
-Start the development server:
+### Start everything with emulators (recommended)
+
+Start the Firebase emulators (API, Firestore, Auth, Storage):
+```bash
+npm run emulators
+```
+
+In a separate terminal, start the React dev server:
 ```bash
 npm start
 ```
 
-The app will be available at `http://localhost:3000`
+- **Frontend**: http://localhost:3000
+- **API**: http://localhost:5001/dispersed/us-central1/api
+- **Emulator UI**: http://localhost:4000
+
+### Frontend only
+
+```bash
+npm start
+```
+
+### API only (with emulators)
+
+```bash
+npm run serve:functions
+```
+
+## Testing
+
+### Frontend tests
+```bash
+npm test
+```
+
+### API tests
+```bash
+npm run test:functions
+```
+
+### API tests with watch mode
+```bash
+cd functions && npm run test:watch
+```
 
 ## Deployment
 
-Build for production:
+### Deploy everything
 ```bash
-npm run build
+npm run deploy:all
 ```
 
-Deploy to Firebase Hosting:
+### Deploy individual services
 ```bash
-firebase deploy --only hosting
+npm run deploy:hosting     # Frontend only
+npm run deploy:functions   # API functions only
+npm run deploy:firestore   # Firestore rules and indexes
+npm run deploy:storage     # Storage rules
 ```
+
+### Deploy with Firebase CLI directly
+```bash
+firebase deploy                    # Everything
+firebase deploy --only hosting     # Frontend
+firebase deploy --only functions   # API
+firebase deploy --only firestore   # Rules + indexes
+```
+
+## API Endpoints
+
+### Authentication
+All protected endpoints require a Firebase ID token:
+```
+Authorization: Bearer <firebase-id-token>
+```
+
+### Campsites
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/campsites` | Optional | List campsites (public + own if auth) |
+| GET | `/api/campsites/:id` | Optional | Get campsite by ID |
+| POST | `/api/campsites` | Required | Create campsite |
+| PUT | `/api/campsites/:id` | Required | Update campsite (owner only) |
+| DELETE | `/api/campsites/:id` | Required | Delete campsite (owner only) |
+
+### Photos
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/api/campsites/:id/photos` | Required | Upload photo (owner only, max 3) |
+| DELETE | `/api/campsites/:id/photos/:photoId` | Required | Delete photo (owner only) |
+
+### Reviews
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/campsites/:id/reviews` | None | Get reviews with pagination |
+| POST | `/api/campsites/:id/reviews` | Optional | Create review (anonymous or auth) |
+| PUT | `/api/campsites/:id/reviews/:reviewId` | Required | Update own review |
+| DELETE | `/api/campsites/:id/reviews/:reviewId` | Required | Delete own review |
+| POST | `/api/campsites/:id/reviews/:reviewId/flag` | Required | Flag review for moderation |
+
+### Search
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/search/campsites` | None | Search with text, location, filters |
+
+### Weather & Elevation
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/weather/:lat/:lng` | Optional | Weather data for coordinates |
+| GET | `/api/elevation/:lat/:lng` | Optional | Elevation data for coordinates |
+
+### Bug Reports
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/api/bug` | None | Submit bug report |
 
 ## Example Code
 
@@ -157,104 +325,52 @@ export const AuthProvider = ({ children }) => {
 };
 ```
 
-### Centralized API Service with Auth Token Injection
+### API Route with Auth Middleware
 
 ```javascript
-import axios from 'axios';
+const router = require('express').Router();
+const admin = require('firebase-admin');
+const { verifyFirebaseToken, optionalAuth } = require('../middleware/auth');
 
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+// Create campsite (authenticated)
+router.post('/', verifyFirebaseToken, async (req, res) => {
+  const { latitude, longitude, title, description, visibility } = req.body;
+  
+  const campsite = {
+    userId: req.user.uid,
+    latitude, longitude, title, description, visibility,
+    createdAt: admin.firestore.FieldValue.serverTimestamp()
+  };
 
-const authenticatedRequest = async (method, endpoint, data = null, getToken) => {
-  try {
-    const token = await getToken();
-    const config = {
-      method,
-      url: `${API_BASE_URL}${endpoint}`,
-      headers: token ? { Authorization: `Bearer ${token}` } : {}
-    };
-    
-    if (data) {
-      config.data = data;
-    }
+  const docRef = await admin.firestore().collection('campsites').add(campsite);
+  res.status(201).json({ id: docRef.id, ...campsite });
+});
 
-    const response = await axios(config);
-    return response.data;
-  } catch (error) {
-    throw new APIError(
-      error.response?.data?.error || 'An error occurred',
-      error.response?.status
-    );
-  }
-};
-
-export const api = {
-  campsites: {
-    getAll: (getToken) => authenticatedRequest('GET', '/campsites', null, getToken),
-    getById: (id, getToken) => authenticatedRequest('GET', `/campsites/${id}`, null, getToken),
-    create: (data, getToken) => authenticatedRequest('POST', '/campsites', data, getToken),
-    update: (id, data, getToken) => authenticatedRequest('PUT', `/campsites/${id}`, data, getToken),
-    delete: (id, getToken) => authenticatedRequest('DELETE', `/campsites/${id}`, null, getToken)
-  },
-  getWeather: (lat, lng) => authenticatedRequest('GET', `/weather/${lat}/${lng}`, null, () => null),
-  getElevation: (lat, lng) => authenticatedRequest('GET', `/elevation/${lat}/${lng}`, null, () => null)
-};
-```
-
-### React Router v6 with Context Providers
-
-```javascript
-import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import { CampsiteProvider } from './contexts/CampsiteContext';
-import HomePage from './components/HomePage';
-import MapPage from './components/MapPage';
-import SignIn from './components/SignIn';
-import Favorites from './components/Favorites';
-
-function App() {
-  return (
-    <AuthProvider>
-      <CampsiteProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="*" element={<div>404 - Page Not Found</div>} />
-        </Routes>
-      </CampsiteProvider>
-    </AuthProvider>
-  );
-}
+// List campsites (public + own if authenticated)
+router.get('/', optionalAuth, async (req, res) => {
+  // Returns public campsites for everyone, plus private ones for the owner
+});
 ```
 
 ## Features
 
 Current Features:
 
-- **Modern React 18**: Concurrent rendering, automatic batching, and improved performance
-- **Firebase Authentication**: Secure email/password authentication with automatic token management
+- **Full-Stack Monorepo**: Frontend and API in a single repository
+- **Modern React 18**: Concurrent rendering, automatic batching
+- **Firebase Functions (Gen 2)**: Serverless Express.js API
+- **Firebase Authentication**: Email/password auth with token management
 - **Interactive Mapping**: ArcGIS-based maps with WebMap portal integration
-- **Context API State Management**: Global state for authentication and campsite data
-- **Campsite Management**: Create, read, update, and delete campsites with public/private visibility
-- **Real-time Weather**: Current conditions and 5-day forecast from OpenWeatherMap
-- **Elevation Data**: Accurate elevation information for any location
-- **Error Boundaries**: Graceful error handling to prevent app crashes
-- **Responsive Design**: Mobile-friendly interface
-- **Centralized API Layer**: Single source for all API communication with automatic auth token injection
-- **Environment Configuration**: Easy deployment with environment variables
-
-Future Features:
-
-- Photo uploads for campsites and road conditions
-- User reviews and ratings for campsites
-- Social features (following users, sharing favorite spots)
-- Advanced search and filtering
-- Forest service alerts and road closures
-- Offline mode with cached maps
-- Mobile app (React Native)
-- User profile management
-- Campsite amenities and features tagging
+- **Campsite Management**: Full CRUD with public/private/unlisted visibility
+- **Photo Uploads**: Image processing with sharp (resize, thumbnails, compression)
+- **Review System**: Authenticated reviews + anonymous star ratings with flagging
+- **Search & Filtering**: Text search, geographic radius search, rating filters
+- **Real-time Weather**: Current conditions and forecast from OpenWeatherMap
+- **Elevation Data**: Accurate elevation from Open-Meteo API
+- **Security**: Helmet.js, rate limiting, input validation, Firestore rules
+- **Comprehensive Tests**: Jest + Supertest for API, React Testing Library for frontend
+- **CI/CD**: GitHub Actions for testing and Firebase deployment
+- **Firebase Emulators**: Full local development environment
 
 ## Status
 
