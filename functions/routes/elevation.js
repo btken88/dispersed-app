@@ -4,7 +4,7 @@ const { optionalAuth } = require('../middleware/auth');
 /**
  * GET /api/elevation/:lat/:lng
  * Fetch elevation data for coordinates
- * Uses MapQuest Elevation API
+ * Uses Open-Meteo Elevation API (free, no API key required)
  */
 router.get('/:lat/:lng', optionalAuth, async (req, res) => {
   const { lat, lng } = req.params;

@@ -54,6 +54,8 @@ jobs:
 
   test-functions:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     strategy:
       matrix:
