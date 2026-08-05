@@ -70,10 +70,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: functions/package-lock.json
 
       - name: Install functions dependencies
-        run: cd functions && npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Run functions tests
-        run: cd functions && npm test
+        run: npm run test --workspace functions
