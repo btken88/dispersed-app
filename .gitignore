@@ -25,3 +25,14 @@ yarn-error.log*
 # Build artifacts
 build/
 .firebase/
+
+# Functions
+functions/node_modules
+functions/coverage
+functions/.env
+functions/.env.local
+
+# Firebase
+firebase-debug.log
+firebase-debug.*.log
+ui-debug.log

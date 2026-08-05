@@ -1,0 +1,69 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Users can read their own profile
+      allow read: if isOwner(userId);
+      
+      // Users can create/update their own profile
+      allow create, update: if isOwner(userId);
+      
+      // Users cannot delete their profile through Firestore
+      // (should be handled through Firebase Auth)
+      allow delete: if false;
+    }
+    
+    // Campsites collection
+    match /campsites/{campsiteId} {
+      // Anyone can read public campsites
+      // Authenticated users can read their own campsites (any visibility)
+      allow read: if resource.data.visibility == 'public' 
+                  || resource.data.visibility == 'unlisted'
+                  || isOwner(resource.data.userId);
+      
+      // Only authenticated users can create campsites
+      allow create: if isSignedIn() 
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.visibility in ['private', 'unlisted', 'public']
+                    && request.resource.data.latitude >= -90 
+                    && request.resource.data.latitude <= 90
+                    && request.resource.data.longitude >= -180 
+                    && request.resource.data.longitude <= 180;
+      
+      // Only the owner can update their campsite
+      allow update: if isOwner(resource.data.userId)
+                    && request.resource.data.userId == resource.data.userId; // userId cannot be changed
+      
+      // Only the owner can delete their campsite
+      allow delete: if isOwner(resource.data.userId);
+      
+      // Reviews subcollection
+      match /reviews/{reviewId} {
+        // Anyone can read reviews for public/unlisted campsites
+        // Owner can read all reviews on their campsites
+        allow read: if get(/databases/$(database)/documents/campsites/$(campsiteId)).data.visibility in ['public', 'unlisted']
+                    || isOwner(get(/databases/$(database)/documents/campsites/$(campsiteId)).data.userId);
+        
+        // Authenticated users can create reviews
+        allow create: if isSignedIn()
+                      && request.resource.data.userId == request.auth.uid
+                      && request.resource.data.rating >= 1
+                      && request.resource.data.rating <= 5;
+        
+        // Users can update/delete their own reviews
+        allow update, delete: if isOwner(resource.data.userId);
+      }
+    }
+  }
+}

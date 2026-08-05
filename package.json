@@ -2,13 +2,15 @@
   "name": "dispersed-app",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "functions"
+  ],
   "dependencies": {
-    "@arcgis/webpack-plugin": "^4.16.2",
     "@react-google-maps/api": "^2.20.8",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "esri-loader": "^3.7.0",
+    "esri-loader": "^2.16.0",
     "esri-loader-hooks": "^0.4.0",
     "firebase": "^12.9.0",
     "react": "^18.3.1",
@@ -23,7 +25,17 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:all": "npm test -- --watchAll=false && npm run test:functions",
+    "eject": "react-scripts eject",
+    "install:functions": "npm install --workspace functions",
+    "test:functions": "npm run test --workspace functions",
+    "serve:functions": "npm run serve --workspace functions",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:firestore": "firebase deploy --only firestore:rules,firestore:indexes",
+    "deploy:storage": "firebase deploy --only storage",
+    "deploy:all": "npm run build && firebase deploy",
+    "emulators": "firebase emulators:start"
   },
   "eslintConfig": {
     "extends": "react-app"
