@@ -98,11 +98,11 @@ router.post(
   '/',
   verifyFirebaseToken,
   [
-    check('latitude').isFloat({ min: -90, max: 90 }).withMessage('Invalid latitude'),
-    check('longitude').isFloat({ min: -180, max: 180 }).withMessage('Invalid longitude'),
-    check('title').isLength({ min: 1, max: 100 }).withMessage('Title must be 1-100 characters'),
+    check('latitude').toFloat().isFloat({ min: -90, max: 90 }).withMessage('Invalid latitude'),
+    check('longitude').toFloat().isFloat({ min: -180, max: 180 }).withMessage('Invalid longitude'),
+    check('title').trim().isLength({ min: 1, max: 100 }).withMessage('Title must be 1-100 characters'),
     check('description').optional().isLength({ max: 2000 }).withMessage('Description max 2000 characters'),
-    check('visibility').isIn(['private', 'unlisted', 'public']).withMessage('Invalid visibility')
+    check('visibility').trim().isIn(['private', 'unlisted', 'public']).withMessage('Invalid visibility')
   ],
   async (req, res) => {
     const errors = validationResult(req);

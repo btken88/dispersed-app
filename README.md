@@ -114,23 +114,18 @@ git clone https://github.com/btken88/dispersed-app.git
 cd dispersed-app
 ```
 
-2. Install frontend dependencies:
+2. Install all frontend and API dependencies from the repository root:
 ```bash
 npm install
 ```
 
-3. Install API (functions) dependencies:
-```bash
-npm run install:functions
-```
-
-4. Copy the environment template and configure:
+3. Copy the environment template and configure:
 ```bash
 cp .env.example .env
 cp functions/.env.example functions/.env
 ```
 
-5. Update `.env` with your credentials:
+4. Update `.env` with your credentials:
 ```env
 # Firebase Configuration
 REACT_APP_FIREBASE_API_KEY=your_api_key
@@ -144,7 +139,7 @@ REACT_APP_FIREBASE_APP_ID=your_app_id
 REACT_APP_API_URL=http://localhost:5001/dispersed/us-central1/api
 ```
 
-6. Login to Firebase:
+5. Login to Firebase:
 ```bash
 firebase login
 firebase use your-project-id
@@ -182,19 +177,19 @@ npm run serve:functions
 
 ## Testing
 
-### Frontend tests
+### All tests
+```bash
+npm run test:all
+```
+
+### Frontend tests only
 ```bash
 npm test
 ```
 
-### API tests
+### API tests only
 ```bash
 npm run test:functions
-```
-
-### API tests with watch mode
-```bash
-cd functions && npm run test:watch
 ```
 
 ## Deployment

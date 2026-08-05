@@ -35,7 +35,7 @@ describe('Campsite CRUD Operations', () => {
                 data: () => defaultCampsiteData
               }
             ],
-            forEach: function(callback) {
+            forEach: function (callback) {
               this.docs.forEach(callback);
             }
           }),
@@ -153,6 +153,23 @@ describe('Campsite CRUD Operations', () => {
           title: 'New Campsite',
           description: 'A great spot',
           visibility: 'public'
+        });
+
+      expect(response.status).toBe(201);
+    });
+
+    it('should create a campsite with numeric coordinates and private visibility', async () => {
+      mockAuthenticatedUser('user123');
+
+      const response = await request(app)
+        .post('/api/campsites')
+        .set('Authorization', 'Bearer valid-token')
+        .send({
+          latitude: 39.84947,
+          longitude: -105.65524,
+          title: 'test',
+          description: 'cool',
+          visibility: 'private'
         });
 
       expect(response.status).toBe(201);
