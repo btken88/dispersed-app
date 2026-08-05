@@ -28,7 +28,7 @@
         "test",
         "coverage"
       ],
-      "runtime": "nodejs20"
+      "runtime": "nodejs24"
     }
   ],
   "firestore": {

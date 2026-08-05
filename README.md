@@ -45,7 +45,7 @@ With Dispersed, you can now find available areas on an interactive map with colo
 - **CSS3**: Responsive styling
 
 ### Backend (Firebase Functions)
-- **Node.js 20**: Server runtime
+- **Node.js 24**: Server runtime
 - **Express.js 4**: REST API framework
 - **Firebase Functions (Gen 2)**: Serverless hosting
 - **Firebase Admin SDK**: Server-side Firebase operations
@@ -101,7 +101,7 @@ dispersed-app/
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 24.x
 - Firebase CLI (`npm install -g firebase-tools`)
 - Firebase project with Authentication, Firestore, and Storage enabled
 - ArcGIS Developer account for Web Map

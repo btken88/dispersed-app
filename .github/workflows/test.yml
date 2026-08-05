@@ -12,8 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
-        # Testing on multiple Node versions for compatibility
+        node-version: [24.x]
 
     steps:
       - name: Checkout code
@@ -45,7 +44,7 @@ jobs:
           REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
 
       - name: Upload build artifacts
-        if: matrix.node-version == '20.x'
+        if: matrix.node-version == '24.x'
         uses: actions/upload-artifact@v4
         with:
           name: build
@@ -59,7 +58,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [24.x]
 
     steps:
       - name: Checkout code

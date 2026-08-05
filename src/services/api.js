@@ -61,7 +61,7 @@ async function authenticatedRequest(endpoint, getToken, options = {}) {
   return request(endpoint, {
     ...options,
     headers: {
-      ...options.headers,
+      ...(options.headers || { 'Content-Type': 'application/json' }),
       'Authorization': `Bearer ${token}`
     }
   });
@@ -178,7 +178,7 @@ const api = {
   // Search endpoint
   search: (params = {}) => {
     const queryParams = new URLSearchParams();
-    
+
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== '') {
         queryParams.append(key, value);
