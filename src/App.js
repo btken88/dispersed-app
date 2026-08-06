@@ -1,8 +1,7 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import "./App.css";
 import MapPage from "./components/MapPage";
-import HomePage from "./components/HomePage";
 import AboutPage from "./components/AboutPage";
 import FavoritesRedirect from "./components/FavoritesRedirect";
 import MyCampsites from "./components/MyCampsites";
@@ -29,7 +28,7 @@ function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Navigate to="/map" replace />} />
             <Route path="*" element={<div>404 - Page Not Found</div>} />
           </Routes>
         </div>
